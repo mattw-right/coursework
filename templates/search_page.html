@@ -1,0 +1,30 @@
+<!doctype html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/search_page_style.css') }}">
+  <title>Search the Database</title>
+</head>
+<body>
+  <div id='center'>
+  <h1>Search the Database</h1>
+  <p></p>
+  <form method="POST" id='form'>
+    <input name="search" id='search' placeholder="Search..."><br></br>
+    <input type="submit" value="Search" id='submit'>
+    <select name="type" method="POST" action="/" id='type'>
+      <option value="track">Track</option>
+      <option value="album">Album</option>
+    </select>
+  </form>
+  <p>Track: {{ song_title }}</p>
+  <p>Artist: {{ artist_name }}</p>
+  <p>Album: {{ album_name }}</p>
+  <p>Release Date: {{ release_date }}</p>
+  <p></p>
+  <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;" src={{ image_url }} width="285" height="285" id='cover_art'>
+  <p></p>
+  <audio controls autoplay>
+  <source  src= {{ song_url }} />
+</audio>
+</div>
+</body>
+</html>
