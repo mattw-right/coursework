@@ -15,16 +15,10 @@
       <option value="album">Album</option>
     </select>
   </form>
-  <p>Track: {{ song_title }}</p>
-  <p>Artist: {{ artist_name }}</p>
-  <p>Album: {{ album_name }}</p>
-  <p>Release Date: {{ release_date }}</p>
   <p></p>
-  <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;" src={{ image_url }} width="285" height="285" id='cover_art'>
   <p></p>
-  <audio controls autoplay>
-  <source  src= {{ song_url }} />
-</audio>
+  <p></p>
+{% block results %}{% endblock %}
 </div>
 </body>
 </html>
