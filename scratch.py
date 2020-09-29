@@ -1,15 +1,33 @@
 
+from listener_profile import Listener_Profile
+import os
 
-from api_call import create_api_call
-from api_return_parser import API_return_parser_track, API_return_parser_album
-from create_fourier import create_fourier
+l = Listener_Profile({'Perfect Day':'https://p.scdn.co/mp3-preview/a48050121ba5ec0d7ffbc8a54fb7f46b8a0d5e70?cid=3cfe7e53e98a4e8b99785159a125ef91'}, {'Clare de Lune (piano)' : 'https://p.scdn.co/mp3-preview/fd735ecbeebf35e7b41a4192bf20aecfffc64db0?cid=3cfe7e53e98a4e8b99785159a125ef91'})
+l.download_tracks()
+profile = l.create_listener_profile()
 
-tracks = ['psycho killer']
+tracks = os.listdir(path='./fouriers/')
+fouriers = {}
 
-for track in tracks:
+for i in tracks:
     try:
-        r = create_api_call(track=track)
-        r = API_return_parser_track(r)
-        create_fourier(r.return_track_name(), r.return_preview_url())
+        fouriers[i] = [float(i) for i in open('./fouriers/' + i).read().split('\n')[:-1]]
     except:
-        print(track)
+        pass
+
+def fourier_distance(fourier1, fourier2):
+    distance = 0
+    for i, j in enumerate(fourier1):
+        distance += (fourier2[i] - j)**2
+    return distance**0.5
+
+recommendations = {}
+
+for i in list(fouriers.keys()):
+    recommendations[i] = fourier_distance(profile, fouriers[i])
+
+import operator
+
+recommendations = sorted(recommendations.items(), key=operator.itemgetter(1))
+
+print(recommendations)
