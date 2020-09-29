@@ -25,7 +25,9 @@ class WAV_file():
         self.aud_data = stereo_to_mono(self.aud_data)
 
     def fourier_transform(self, sample_size):
-        self.raw_transformed = np.array(random.sample(list(fft(self.aud_data)), sample_size))
+        self.raw_transformed = np.array(list(fft(self.aud_data))[0::len(list(fft(self.aud_data)))//sample_size])
+        if len(self.raw_transformed)>sample_size:
+            self.raw_transformed = self.raw_transformed[:sample_size]
         self.absolute_tranformed = abs(self.raw_transformed)
         self.normalised_transformed = [float(i)/sum(self.absolute_tranformed) for i in self.absolute_tranformed]
 
