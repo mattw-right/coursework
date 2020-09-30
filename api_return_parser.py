@@ -1,6 +1,7 @@
 import pandas as pd
 
 class API_return_parser_track:
+    '''Parses the return of an API call for a track, retrieving certain data from it'''
 
     def __init__(self, raw_body):
         '''Initiates the object, setting the local body attribute to what the API has returned'''
@@ -47,6 +48,7 @@ class API_return_parser_track:
         return self.body['tracks']['items'][result_index]['album']['images'][0]['url']
 
     def to_table(self):
+        '''Converts the song data into a Pandas dataframe so that it might be displayed '''
         df = pd.DataFrame(columns = ['Track Name', 'Artist', 'Album', 'Preview URL', 'Cover Art URL'])
         for i in range(len(self.body['tracks']['items'])):
             df.loc[i] = [self.return_track_name(result_index=i), self.return_first_artist_name(result_index=i), self.return_album_name(result_index=i), self.return_preview_url(result_index=i), self.return_cover_art_url(result_index=i)]
