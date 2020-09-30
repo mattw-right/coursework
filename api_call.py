@@ -8,6 +8,7 @@ auth_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
 def create_api_query(track=False, artist=False, album=False, year=False):
+    '''Formats the API query based on the arguments'''
     q = ''
     if track: q += 'track:' + track
     elif artist: q += 'artist:' + artist
@@ -17,6 +18,7 @@ def create_api_query(track=False, artist=False, album=False, year=False):
 
 
 def create_api_call(track=None, year=None, artist=None, album=None, genre=None, type='track', limit=10, market=None, offset=0, error_catch=10):
+    '''Creates a Spotify API call and returns the results'''
     i = 0
     while True:
         try:
